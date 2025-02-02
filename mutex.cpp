@@ -52,7 +52,7 @@ void dec(int numIterations)
 
 int main() {
     const int numThreads = 5;
-    const int numIterations = 1000;
+    const int numIterations = 100000;
     std::vector<std::thread> threads;
 
     for (int i = 0; i < numThreads; ++i)
