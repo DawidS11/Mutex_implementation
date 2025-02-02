@@ -52,24 +52,33 @@ void dec(int numIterations)
 
 int main() {
     const int numThreads = 5;
-    const int numInc = 1000;
-    const int numDec = 500;
+    const int numIterations = 1000;
     std::vector<std::thread> threads;
 
     for (int i = 0; i < numThreads; ++i)
     {
-        threads.emplace_back(inc, numInc);
-        threads.emplace_back(dec, numDec);
+        threads.emplace_back(inc, numIterations);
     }
-
     for (auto& t : threads)
     {
         t.join();
     }
-    
-    if (numThreads * (numInc - numDec) == counter)
+    if (counter == numThreads * numIterations)
     {
         std::cout << "OK" << std::endl;
     }
 
+    threads.clear();
+    for (int i = 0; i < numThreads; ++i)
+    {
+        threads.emplace_back(dec, numIterations);
+    }
+    for (auto& t : threads)
+    {
+        t.join();
+    }
+    if (counter == 0)
+    {
+        std::cout << "OK" << std::endl;
+    }
 }
